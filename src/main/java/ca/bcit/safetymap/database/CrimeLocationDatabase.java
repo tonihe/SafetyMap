@@ -1,6 +1,10 @@
 package ca.bcit.safetymap.database;
 
-public abstract class CrimeLocationDatabase
+import android.arch.persistence.room.Database;
+import android.arch.persistence.room.RoomDatabase;
+
+@Database(entities = {CrimeLocation.class}, version = 1, exportSchema = false)
+public abstract class CrimeLocationDatabase extends RoomDatabase
 {
-    public abstract CrimeLocationDAO crimemapDao();
+    public abstract CrimeLocationDAO crimeLocationDao();
 }
