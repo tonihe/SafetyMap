@@ -1,10 +1,6 @@
 package ca.bcit.safetymap.data;
 
 
-import com.google.android.gms.common.Feature;
-
-import java.util.List;
-
 public class CrimeLocations {
 
     private String type;

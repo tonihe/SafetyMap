@@ -4,26 +4,25 @@ package ca.bcit.safetymap.database;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
-import com.google.android.gms.common.Feature;
-
-@Entity(tableName = "crimelocation",
+@Entity(tableName = "crimelocations",
         indices = { @Index("id")})
 
 public class CrimeLocation
 {
-    @PrimaryKey
-    private int id;
+    @PrimaryKey@NonNull
+    private String id;
     private double latitude;
     private double longitude;
     private String category;
 
-    public int getId()
+    public String getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(String id)
     {
         this.id = id;
     }

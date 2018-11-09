@@ -14,7 +14,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -32,8 +32,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @NonNull
     private static final String TAG = MapsActivity.class.getName();
-    String url = "https://gis.mapleridge.ca/arcgis/rest/services/OpenData/PublicSafety/MapServer/7/query?outFields=*&where=1%3D1";
-    private CrimeLocationDatabase database;
+    String url = "http://opendata.newwestcity.ca/downloads/playgrounds/PLAYGROUNDS.json";
+    public CrimeLocationDatabase database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +46,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         database = Room.databaseBuilder(getApplicationContext(),
                 CrimeLocationDatabase.class,
-                "crimes").build();
+                "crimelocations").build();
 
     }
 
@@ -86,7 +87,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void parseJSON(final JsonObject json,
-                           final CrimeLocationDAO votingLocationDAO)
+                           final CrimeLocationDAO crimeLocationDAO)
     {
         final Gson gson;
         final CrimeLocations crimeLocations;
@@ -108,14 +109,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             crimeLocation = new CrimeLocation();
             crimeLocation.setLatitude(latitude);
             crimeLocation.setLongitude(longitude);
-
-            CrimeLocationDAO.insertAll(crimeLocation);
+            crimeLocationDAO.insertAll(crimeLocation);
         }
     }
 
-    private void updateLocations(final CrimeLocationDAO votingLocationDAO)
+    private void updateLocations(final CrimeLocationDAO crimeLocationDAO)
     {
-        final List<CrimeLocation> locations = votingLocationDAO.getAll();
+        final List<CrimeLocation> locations = crimeLocationDAO.getAll();
 
         runOnUiThread(new Runnable()
         {

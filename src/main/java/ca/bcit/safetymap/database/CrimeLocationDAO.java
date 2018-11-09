@@ -11,14 +11,14 @@ import java.util.List;
 @Dao
 public interface CrimeLocationDAO
 {
-    @Query("SELECT COUNT(*) FROM crimelocation")
+    @Query("SELECT COUNT(*) FROM crimelocations")
     int count();
 
-    @Query("SELECT * FROM crimelocation")
+    @Query("SELECT * FROM crimelocations")
     List<CrimeLocation> getAll();
 
-//    @Query("SELECT id FROM crimelocation")
-//    List<String> getAllId();
+    @Query("SELECT id FROM crimelocations")
+    List<String> getAllId();
 
     @Insert
     void insertAll(CrimeLocation... crimeLocations);
